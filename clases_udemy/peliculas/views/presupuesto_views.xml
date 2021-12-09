@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_presupuestoform" model="ir.ui.view">
+        <field name="name">Vista formulario de presupuesto depeliculas</field>
+        <field name="model">presupuesto</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+<!--                    <center>-->
+<!--                        <h1 style="color: red">-->
+<!--                            Titulo-->
+<!--                        </h1>-->
+<!--                    </center>-->
+                    <widget name="web_ribbon" title="Archivado" bg_color="bg-danger" attrs="{'invisible':[('active','=',True)]}"/>
+                    <field name="image_1920" widget="image" class="oe_avatar"
+                           options="{'preview_image': 'image_128', 'size':['',128] }"/>
+                    <div class="oe_title">
+                        <div class="o_row">
+                            <h1>
+                                <field name="name"
+                                       placeholder="Nombre de la pelicula"
+                                       required="1"
+                                       default_focus="1"/>
+                            </h1>
+                        </div>
+                    </div>
+
+                    <group>
+                        <group>
+                            <field name="clasificacion"/>
+                        </group>
+                        <group>
+                            <field name="puntuacion"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>
