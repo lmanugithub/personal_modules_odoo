@@ -2,5 +2,7 @@
 
 from odoo import fields, models, api
 
-class Presupuesto(models.Model):
+class Genero(models.Model):
     _name = 'genero'
+
+    name = fields.Char()

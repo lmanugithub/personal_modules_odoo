@@ -44,6 +44,9 @@
                                   style="padding: 5px 5px;"/>
 +                           <field name="fch_estreno"/>
                         </div>
+                        <div class="o_row">
+                            <field name="genero_ids" widget="many2many_tags" style="display: flex;"/>
+                        </div>
                     </div>
 
                 </sheet>
