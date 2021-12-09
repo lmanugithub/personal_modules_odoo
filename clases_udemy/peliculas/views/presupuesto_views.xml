@@ -17,24 +17,35 @@
                            options="{'preview_image': 'image_128', 'size':['',128] }"/>
                     <div class="oe_title">
                         <div class="o_row">
-                            <h1>
+                            <field name="active" invisible="1"/>
+                            <h1 style="display: flex;">
                                 <field name="name"
                                        placeholder="Nombre de la pelicula"
                                        required="1"
-                                       default_focus="1"/>
+                                       default_focus="1"
+                                       class="oe_inline"/>
+
+                                <field name="puntuacion"
+                                       widget="percentpie"
+                                       string=" "
+                                       style="padding-left: 10px;"
+                                       class="oe_inline"/>
+
+                                <field name="puntuacion2"
+                                       placeholder="Puntuación de usuario"
+                                       class="oe_edit_only oe_inline" />
+
                             </h1>
+                        </div>
+                        <div class="o_row" style="display: flex;">
+                            <field name="clasificacion" required="1"/>
+                            <span class="fa fa-film"
+                                  attrs="{'invisible': [('clasificacion','=',False),('fch_estreno','=',False)] }"
+                                  style="padding: 5px 5px;"/>
++                           <field name="fch_estreno"/>
                         </div>
                     </div>
 
-                    <group>
-                        <group>
-                            <field name="clasificacion"/>
-                        </group>
-                        <group>
-                            <field name="puntuacion"/>
-                            <field name="active" invisible="1"/>
-                        </group>
-                    </group>
                 </sheet>
             </form>
         </field>

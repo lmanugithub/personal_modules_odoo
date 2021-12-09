@@ -15,7 +15,8 @@ class Presupuesto(models.Model):
     ],string='Clasificación')
 
     fch_estreno = fields.Date(string='Fecha Estreno')
-    puntuacion = fields.Integer(string='Puntuación')
+    puntuacion = fields.Integer(string='Puntuación', related="puntuacion2") # relacionamos el valor de otra variable
+    puntuacion2 = fields.Integer(string='Puntuación2')
     active = fields.Boolean(string='Activo', default=True) # para ocultar o no algunos datos y el usuario no los pueda ver o no
     director_id = fields.Many2one(
         comodel_name='res.partner', # es el _name del modelo
