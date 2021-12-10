@@ -24,17 +24,14 @@
                                        required="1"
                                        default_focus="1"
                                        class="oe_inline"/>
-
                                 <field name="puntuacion"
                                        widget="percentpie"
                                        string=" "
                                        style="padding-left: 10px;"
                                        class="oe_inline"/>
-
                                 <field name="puntuacion2"
                                        placeholder="Puntuación de usuario"
                                        class="oe_edit_only oe_inline" />
-
                             </h1>
                         </div>
                         <div class="o_row" style="display: flex;">
@@ -48,7 +45,18 @@
                             <field name="genero_ids" widget="many2many_tags" style="display: flex;"/>
                         </div>
                     </div>
-
+                    <group string="Datos Principales" style="margin-top: -10px;">
+                        <field name="vista_general" placeholder="Vista general"/>
+                        <group>
+                            <field name="director_id"/>
+                            <field name="link_trailer"/>
+                        </group>
+                        <group>
+                            <field name="es_libro" widget="boolean_toggle"/>
+                            <field name="libro" filename ="libro_fiename" attrs="{'invisible': [('es_libro','=',False)]}"/>
+                            <field name="libro_fiename" invisible="1"/>
+                        </group>
+                    </group>
                 </sheet>
             </form>
         </field>
