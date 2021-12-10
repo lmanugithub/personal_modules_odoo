@@ -22,6 +22,11 @@ class Presupuesto(models.Model):
         comodel_name='res.partner', # es el _name del modelo
         string='Director'
     )
+    categoria_director_id = fields.Many2one(
+        comodel_name='res.partner.category',
+        string='Categoria Director',
+        default=lambda self: self.env['res.partner.category'].search([('name','=','Director')])
+    )
     genero_ids = fields.Many2many(
         comodel_name='genero', # es el _name del modelo
         string='Generos'
