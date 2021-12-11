@@ -6,6 +6,11 @@
         <field name="model">presupuesto</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <button string="Aprobar" type="object" name="aprobar_presupuesto" class="oe_highlight" states="borrador"/>
+                    <button string="Cancelar" type="object" name="cancelar_presupuesto" states="borrador,aprobado"/>
+                    <field name="state" widget="statusbar" statusbar_visible="borrador,aprobado"/>
+                </header>
                 <sheet>
 <!--                    <center>-->
 <!--                        <h1 style="color: red">-->
@@ -46,13 +51,14 @@
                         </div>
                     </div>
                     <group string="Datos Principales" style="margin-top: -10px;">
-                        <field name="vista_general" placeholder="Vista general"/>
+                        <field name="vista_general" placeholder="Vista general..." attrs="{'readonly': [('state','!=','borrador')]}"/>
                         <group>
                             <field name="director_id" 
                             domain="[('category_id','in',[categoria_director_id])]" 
                             options="{'no_create':True, 'no_open':True}"/>
                             <field name="categoria_director_id" invisible="1"/>
                             <field name="link_trailer" widget="url"/>
+                            <field name="fch_aprobado" readonly="1"/>
                         </group>
                         <group>
                             <field name="es_libro" widget="boolean_toggle"/>

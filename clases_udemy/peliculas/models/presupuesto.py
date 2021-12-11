@@ -1,6 +1,11 @@
 # -*- coding: utf-8 -*-
 
+# from typing_extensions import ParamSpecArgs <- neta que no se de donde salio esto
+import logging
+
 from odoo import fields, models, api
+
+logger = logging.getLogger(__name__)
 
 class Presupuesto(models.Model):
     _name = 'presupuesto'
@@ -36,4 +41,24 @@ class Presupuesto(models.Model):
     es_libro = fields.Boolean(string='Versión Libro')
     libro = fields.Binary(string='Libro')
     libro_filename = fields.Char(string='Nombre del Libro')
+    
+    # Creación de la barra de estado state
+ 
+    state = fields.Selection(selection=[
+        ('borrador','Borrador'),
+        ('aprobado','Aprovado'),
+        ('cancelado','Cancelado'),
+    ], default='borrador', string='Estados', copy=False)
 
+    fch_aprobado = fields.Datetime(string='Fecha aprobación', copy=False)
+
+    # Definimos funciones para nuestros botones
+
+    def aprobar_presupuesto(self):
+        logger.info('Entro a la fucnión aprobar')
+        self.state = 'aprobado'
+        self.fch_aprobado = fields.Datetime.now()
+
+
+    def cancelar_presupuesto(self):
+        self.state = 'cancelado'
