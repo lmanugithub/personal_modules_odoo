@@ -3,8 +3,8 @@
 # from typing_extensions import ParamSpecArgs <- neta que no se de donde salio esto
 import logging
 
-from odoo import fields, models, api
-from odoo.exceptions import UserError
+from odoo import fields, models, api, exceptions
+
 
 logger = logging.getLogger(__name__)
 
@@ -77,7 +77,7 @@ class Presupuesto(models.Model):
         '''
         logger.info('************************Se disparo la función unlink')
         if self.state != 'cancelado':
-            raise UserError('No se puede eliminar sino está cancelado')
+            raise exceptions.UserError('No se puede eliminar sino está cancelado')
         super(Presupuesto, self).unlink()
 
     @api.model
@@ -98,7 +98,7 @@ class Presupuesto(models.Model):
         '''
         logger.info(f'**************variable: {variables}')
         if 'clasificacion' in variables:
-            raise UserError('La clasificación no es editable')
+            raise exceptions.UserError('La clasificación no es editable')
         return super(Presupuesto, self).write(variables)
 
     def copy(self, default=None):
