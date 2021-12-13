@@ -13,3 +13,4 @@ addons_path = E:\Odoo14\odoo\addons
 bin_path = E:\Odoo14\wkhtmltopdf
 pg_path = C:\Program Files\PostgreSQL\13\bin\
 '''
+

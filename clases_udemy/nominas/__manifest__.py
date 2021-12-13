@@ -10,5 +10,8 @@
     'depends': ['base'],
     'author': 'Luis Manuel',
 
-    'data': []
+    'data': [
+        'views/menu.xml',
+        
+        ]
 }

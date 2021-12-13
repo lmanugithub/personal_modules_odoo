@@ -13,6 +13,8 @@
     'author': 'Luis Manuel',
 
     'data': [
+        'data/categoria.xml',
+        'data/secuencia.xml',
         'views/menu.xml',
         'views/presupuesto_views.xml',
     ]

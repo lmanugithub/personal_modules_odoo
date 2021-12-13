@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="action_open_nomina" model="ir.actions.act_window">
+        <field name="name">Nomina</field>
+        <field name="res_model">nomina</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_principal" name="Nomina"/>
+    <menuitem id="menu_horizontal" name="Mis Modelos" parent="menu_principal" />
+    <menuitem id="menu_vertical_presupuesto" name="Nomina" parent="menu_horizontal" action="action_open_nomina" />
+</odoo>

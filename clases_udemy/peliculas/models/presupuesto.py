@@ -36,8 +36,11 @@ class Presupuesto(models.Model):
     categoria_director_id = fields.Many2one(
         comodel_name='res.partner.category',
         string='Categoria Director',
-        default=lambda self: self.env['res.partner.category'].search(
-            [('name', '=', 'Director')])
+        # Segunda version
+        default=lambda self: self.env.ref('peliculas.category_director')
+
+        # Primera version
+        # default=lambda self: self.env['res.partner.category'].search([('name', '=', 'Director')])
     )
     genero_ids = fields.Many2many(
         comodel_name='genero',  # es el _name del modelo
@@ -59,6 +62,8 @@ class Presupuesto(models.Model):
 
     fch_aprobado = fields.Datetime(string='Fecha aprobación', copy=False)
 
+    num_prespupuesto = fields.Char(string='Numero de presupuesto', copy=False)
+
     # Definimos funciones para nuestros botones
 
     def aprobar_presupuesto(self):
@@ -76,19 +81,22 @@ class Presupuesto(models.Model):
         Info: Esta función es para eliminar registros
         '''
         logger.info('************************Se disparo la función unlink')
-        if self.state != 'cancelado':
-            raise exceptions.UserError('No se puede eliminar sino está cancelado')
-        super(Presupuesto, self).unlink()
+        for record in self: 
+            if record.state != 'cancelado':
+                raise exceptions.UserError(
+                    'No se puede eliminar sino está cancelado')
+            super(Presupuesto, record).unlink()
 
     @api.model
     def create(self, variables):
         '''
         Info: Esta función es para crear registros
-        la utilizaremos en un futuro para reescribir variables antes de
-        que se graven en la base de datos...
-        ya que le llegaran todas las variables
         '''
         logger.info(f'**************variable: {variables}')
+        secuence_obj = self.env['ir.sequence']
+        correlativo = secuence_obj.next_by_code(
+            'secuencia.presupuesto.pelicula')
+        variables['num_prespupuesto'] = correlativo
         return super(Presupuesto, self).create(variables)
 
     def write(self, variables):
@@ -103,7 +111,7 @@ class Presupuesto(models.Model):
 
     def copy(self, default=None):
         default = dict(default or {})
-        default['name']=self.name + ' (copia)'
+        default['name'] = self.name + ' (copia)'
         return super(Presupuesto, self).copy(default)
 
     @api.onchange('clasificacion')

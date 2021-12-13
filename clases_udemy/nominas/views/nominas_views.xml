@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <redord id="view_nominaform" model="ir.ui.view">
+        <field name="name">Vista formulario de nominas peliculas</field>
+        <field name="model">nomina</field>
+        <field name="arch" type="xml">
+            <form>
+                <hedear>
+
+                </hedear>
+                <div>
+
+                </div>
+                <sheet>
+                    <div class="oe_title">
+
+                    </div>
+                    <group>
+                        <group>
+
+                        </group>
+                        <group>
+                            
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </redord>
+</odoo>

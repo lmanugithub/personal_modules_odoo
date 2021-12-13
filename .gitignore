@@ -1,5 +1,5 @@
-\odoo
-\venv
-\wkhtmltopdf
-\.idea
-*.conf
+/odoo
+/venv
+/wkhtmltopdf
+/.idea
+./*.conf

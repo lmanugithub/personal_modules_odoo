@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <odoo>
 
     <record id="view_presupuestoform" model="ir.ui.view">
@@ -56,12 +56,13 @@
                     <group string="Datos Principales" style="margin-top: -10px;">
                         <field name="vista_general" placeholder="Vista general..." attrs="{'readonly': [('state','!=','borrador')]}"/>
                         <group>
-                            <field name="director_id" 
-                            domain="[('category_id','in',[categoria_director_id])]" 
-                            options="{'no_create':True, 'no_open':True}"/>
+                            <field name="director_id"
+                                   domain="[('category_id','in',[categoria_director_id])]"
+                                   options="{'no_create':True, 'no_open':True}"/>
                             <field name="categoria_director_id" invisible="1"/>
                             <field name="link_trailer" widget="url"/>
                             <field name="fch_aprobado" readonly="1"/>
+                            <field name="num_prespupuesto" readonly="1"/>
                         </group>
                         <group>
                             <field name="es_libro" widget="boolean_toggle"/>
