@@ -60,9 +60,23 @@ class Presupuesto(models.Model):
         ('cancelado', 'Cancelado'),
     ], default='borrador', string='Estados', copy=False)
 
-    fch_aprobado = fields.Datetime(string='Fecha aprobación', copy=False)
+    # Variables de pestañas
+    # Pestaña 1
 
+    fch_aprobado = fields.Datetime(string='Fecha aprobación', copy=False)
+    fch_creacion = fields.Datetime(string='Fecha creación', copy=False, default=lambda self:fields.Datetime.now() )
     num_prespupuesto = fields.Char(string='Numero de presupuesto', copy=False)
+    # Pestaña 2
+    actor_ids = fields.Many2many(
+        comodel_name='res.partner',  # es el _name del modelo
+        string='Actores'
+    )
+    categoria_actor_id = fields.Many2one(
+        comodel_name='res.partner.category',
+        string='Categoria Actor',
+        default=lambda self: self.env.ref('peliculas.category_actor')
+    )
+    opinion = fields.Html(string="Opinion")
 
     # Definimos funciones para nuestros botones
 
