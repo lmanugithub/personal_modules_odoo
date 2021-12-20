@@ -6,7 +6,14 @@
         <field name="view_mode">tree,form</field>
     </record>
 
+    <record id="action_open_recurso_cinamatografico" model="ir.actions.act_window">
+        <field name="name">Recurso Cinematografico</field>
+        <field name="res_model">recurso.cinematografico</field>
+        <field name="view_mode">tree,form</field>
+    </record>    
+
     <menuitem id="menu_principal" name="Peliculas"/>
     <menuitem id="menu_horizontal" name="Mis Modelos" parent="menu_principal" />
     <menuitem id="menu_vertical_presupuesto" name="Presupuesto" parent="menu_horizontal" action="action_open_presupuesto" />
+    <menuitem id="menu_vertical_recurso_cinamatografico" name="Recurso Cinematografico" parent="menu_horizontal" action="action_open_recurso_cinamatografico" />
 </odoo>

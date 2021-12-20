@@ -64,7 +64,8 @@ class Presupuesto(models.Model):
     # Pestaña 1
 
     fch_aprobado = fields.Datetime(string='Fecha aprobación', copy=False)
-    fch_creacion = fields.Datetime(string='Fecha creación', copy=False, default=lambda self:fields.Datetime.now() )
+    fch_creacion = fields.Datetime(
+        string='Fecha creación', copy=False, default=lambda self: fields.Datetime.now())
     num_prespupuesto = fields.Char(string='Numero de presupuesto', copy=False)
     # Pestaña 2
     actor_ids = fields.Many2many(
@@ -77,6 +78,13 @@ class Presupuesto(models.Model):
         default=lambda self: self.env.ref('peliculas.category_actor')
     )
     opinion = fields.Html(string="Opinion")
+
+    # Relación con el detalle
+    detalle_ids = fields.One2many(
+        comodel_name='presupuesto.detalle',
+        inverse_name='presupuesto_id',
+        string='Detalles'
+    )
 
     # Definimos funciones para nuestros botones
 
@@ -95,7 +103,7 @@ class Presupuesto(models.Model):
         Info: Esta función es para eliminar registros
         '''
         logger.info('************************Se disparo la función unlink')
-        for record in self: 
+        for record in self:
             if record.state != 'cancelado':
                 raise exceptions.UserError(
                     'No se puede eliminar sino está cancelado')
@@ -143,3 +151,29 @@ class Presupuesto(models.Model):
                 self.dsc_clasificacion = 'Mayores de 18'
         else:
             self.dsc_clasificacion = False
+
+
+class PresupuestoDetalle(models.Model):
+    _name = "presupuesto.detalle"
+
+    # Relación con cabecera
+    presupuesto_id = fields.Many2one(
+        comodel_name ='presupuesto',
+        string='Presupuesto'
+    )
+
+    name = fields.Many2one(
+        comodel_name='recurso.cinematografico',  # product.product
+        string='Recurso',
+    )
+    descripcion = fields.Char(string='Descripción', related='name.descripcion')
+    contacto_id = fields.Many2one(
+        comodel_name='res.partner',
+        string='Contacto',
+        related='name.contacto'
+    )
+    imagen = fields.Binary(string='Imagen', related='name.imagen')
+    cantidad = fields.Float(string='Cantidad', default=1.0, digits=(16,4))
+    # Para esto se instalo el modulo Productos y Tarifas
+    precio = fields.Float(string='Precio', digits='Product Price')
+    importe = fields.Float(string='Importe')
