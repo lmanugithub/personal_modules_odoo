@@ -13,7 +13,10 @@ class Presupuesto(models.Model):
     _name = 'presupuesto'
     _inherit = ['image.mixin']
     name = fields.Char(string='Película')
+
+    # creación de un listado en crudo
     clasificacion = fields.Selection(selection=[
+        # (lo_que_se_muestra, Base_de_datos)
         ('G', 'G'),  # Publico en general
         ('PG', 'PG'),  # Se recomienda la compañia de un adulto
         ('PG-13', 'PG13'),  # Mayor de 13
@@ -27,10 +30,11 @@ class Presupuesto(models.Model):
     # relacionamos el valor de otra variable
     puntuacion = fields.Integer(string='Puntuación', related="puntuacion2")
     puntuacion2 = fields.Integer(string='Puntuación2')
+
     # para ocultar o no algunos datos y el usuario no los pueda ver o no
     active = fields.Boolean(string='Activo', default=True)
     director_id = fields.Many2one(
-        comodel_name='res.partner',  # es el _name del modelo
+        comodel_name='res.partner',  # es el _name del modelo a relacionar
         string='Director'
     )
     categoria_director_id = fields.Many2one(
@@ -85,11 +89,13 @@ class Presupuesto(models.Model):
         inverse_name='presupuesto_id',
         string='Detalles'
     )
+    # ocultar columnas
+    campos_ocultos = fields.Boolean(string='Campos Ocultos')
 
     # Definimos funciones para nuestros botones
 
     def aprobar_presupuesto(self):
-        logger.info('Entro a la fucnión aprobar')
+        logger.info('Entro a la función aprobar')
         self.state = 'aprobado'
         self.fch_aprobado = fields.Datetime.now()
 
@@ -115,9 +121,12 @@ class Presupuesto(models.Model):
         Info: Esta función es para crear registros
         '''
         logger.info(f'**************variable: {variables}')
+        # salto de modelo para la secuencia
         secuence_obj = self.env['ir.sequence']
+        # funcion para buscar el siguiente del consecutivo
         correlativo = secuence_obj.next_by_code(
             'secuencia.presupuesto.pelicula')
+        # se crea una variable para guardar el consecutivo
         variables['num_prespupuesto'] = correlativo
         return super(Presupuesto, self).create(variables)
 

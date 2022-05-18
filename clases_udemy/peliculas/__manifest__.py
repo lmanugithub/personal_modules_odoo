@@ -7,8 +7,9 @@
     'version': '0.1',
     'website': 'www.uneteya.org',
     'summary': 'Modulo de presupuesto para peliculas',
-    'depends': ['base',
-                'contacts',
+    'depends': [
+        'base',
+        'contacts',
                 ],
     'author': 'Luis Manuel',
 
